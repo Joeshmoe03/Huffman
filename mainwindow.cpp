@@ -201,6 +201,7 @@ void MainWindow::onDecode() {
 
     // Reset the table: desired behavior is hiding column of frequency on decoding because we lose the info.
     // I am still leaving clearColumn which delete QTableWidgetItem(s) - is good practice/idea in Qt or is hideColumn enough?
+    // TO PROFESSOR: SEE QUESTION BELOW.
     int freqCol = 2; int encodingCol = 3;
     clearColumn(huffmanTable, freqCol);
     clearColumn(huffmanTable, encodingCol);
@@ -282,7 +283,7 @@ int MainWindow::toBinary(QByteArray *dataPtr, QVector<QString> encoder) {
             nBits += 8;
         } else {
 
-            // Remaining bits and leftJustify for padding
+            // Remaining bits
             byteString = encodedString.mid(i);
             nBits += byteString.length();
         }
@@ -333,6 +334,7 @@ QByteArray &MainWindow::fromBinary(QVector<QString> encoder, QByteArray *dataPtr
 }
 
 /* This may or may not be needed now that the assignment guidlines specify to hide cols in some scenarios */
+// QUESTION TO PROFESSOR: IS IT ACCEPTABLE OR EVEN NECESSARY TO DELETE THE ITEMS MANUALLY OR IS IT OKAY TO JUST HIDE COL?
 void MainWindow::clearColumn(QTableWidget *tableWidget, int column) {
     huffmanTable->setSortingEnabled(false);
     int rowCount = huffmanTable->rowCount();
@@ -374,7 +376,7 @@ QVector<QString> MainWindow::buildHuffmanTree() {
     }
 
     QByteArray current;
-    QVector<QString> charCodeEncodingString(256, "");
+    QVector<QString> encoder(256, "");
     QByteArray target;
     QString encoding;
 
@@ -399,7 +401,7 @@ QVector<QString> MainWindow::buildHuffmanTree() {
                 break;
             }
         }
-        charCodeEncodingString[code] = encoding;
+        encoder[code] = encoding;
     }
-    return charCodeEncodingString;
+    return encoder;
 }
