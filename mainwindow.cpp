@@ -285,7 +285,7 @@ int MainWindow::toBinary(QByteArray *dataPtr, QVector<QString> encoder) {
             // Remaining bits and leftJustify for padding
             byteString = encodedString.mid(i);
             nBits += byteString.length();
-            byteString = byteString.leftJustified(8, '0'); //rightJustified
+            //byteString = byteString.leftJustified(8, '0'); //rightJustified
             //nBits += byteString.length();
         }
         bool ok;
